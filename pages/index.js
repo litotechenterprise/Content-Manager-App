@@ -2,9 +2,8 @@ import Layout from "@/components/Layout";
 import NewsLetter from "@/components/Newsletter";
 import ResourceHighlight from "@/components/ResourceHighlight";
 import ResourceList from "@/components/ResourceList";
-import { resources } from "@/api/data";
 
-function Home({ myData1, myData2 }) {
+function Home({ resources }) {
   return (
     <Layout>
       <ResourceHighlight resources={resources.slice(0, 2)} />
@@ -14,11 +13,12 @@ function Home({ myData1, myData2 }) {
   );
 }
 
-export function getStaticProps() {
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:3000/api/resources");
+  const data = await res.json();
   return {
     props: {
-      myData1: [1, 2, 3],
-      myData2: ["a", "b", "c"],
+      resources: data,
     },
   };
 }
