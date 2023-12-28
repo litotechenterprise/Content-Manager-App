@@ -13,8 +13,11 @@ function Home({ resources }) {
   );
 }
 
-export async function getStaticProps() {
-  const res = await fetch("http://localhost:3000/api/resources");
+// is called every time you visit the page
+// this function is exec on the server
+// data is always fresh
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3001/api/resources");
   const data = await res.json();
   return {
     props: {
