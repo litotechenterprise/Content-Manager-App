@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const ResourceList = ({ resources }) => {
   const renderResources = () =>
     resources.map((resource) => (
@@ -6,6 +8,9 @@ const ResourceList = ({ resources }) => {
           <h2 className="subtitle is-5 has-text-grey">{resource.createdAt}</h2>
           <h1 className="title has-text-black is-3">{resource.title}</h1>
           <p className="has-text-dark">{resource.description}</p>
+          <Link href={"/resources/" + resource.id} className="button is-link">
+            Details
+          </Link>
         </div>
       </div>
     ));
@@ -19,7 +24,6 @@ const ResourceList = ({ resources }) => {
               {renderResources()}
             </div>
           </section>
-          {/* <div className="is-divider"></div> */}
         </div>
       </div>
     </section>

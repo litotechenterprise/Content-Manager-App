@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
+import axios from "axios";
 const defaultData = {
   title: "",
   description: "",
@@ -11,14 +12,16 @@ const defaultData = {
 
 const ResourceCreate = () => {
   const [form, setForm] = useState(defaultData);
+  const router = useRouter();
   const OnSubmitForm = () => {
-    const res = fetch("/api/resources", {
-      body: JSON.stringify(form),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
+    axios
+      .post("/api/resources", form)
+      .then(() => {
+        router.push("/");
+      })
+      .catch((e) => {
+        alert(e.response.data);
+      });
   };
 
   const resetForm = () => {
