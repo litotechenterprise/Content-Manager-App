@@ -1,7 +1,15 @@
 import Layout from "@/components/Layout";
+import axios from "axios";
+import moment from "moment";
 import Link from "next/link";
 
 const ResourceDetail = ({ data }) => {
+  const activeResource = () => {
+    axios
+      .patch("/api/resources/", { ...data, status: "active" })
+      .then((_) => location.reload())
+      .catch((_) => alert("Cannot active the resource"));
+  };
   return (
     <Layout>
       <section className="hero ">
@@ -11,8 +19,16 @@ const ResourceDetail = ({ data }) => {
               <div className="columns">
                 <div className="column is-8 is-offset-2">
                   <div className="content is-medium">
-                    <h2 className="subtitle is-4">{data.createdAt}</h2>
+                    <h2 className="subtitle is-4">
+                      {moment(data.createdAt).format("LLL")}
+                      <span
+                        className={`tag is-large ml-4 resource-${data.status}`}
+                      >
+                        {data.status}
+                      </span>
+                    </h2>
                     <h1 className="title">{data.title}</h1>
+
                     <p>{data.description}</p>
                     <Link
                       href={`/resources/${data.id}/edit`}
@@ -20,6 +36,12 @@ const ResourceDetail = ({ data }) => {
                     >
                       Update
                     </Link>
+                    <button
+                      className="button is-success ml-1"
+                      onClick={activeResource}
+                    >
+                      Active
+                    </button>
                   </div>
                 </div>
               </div>

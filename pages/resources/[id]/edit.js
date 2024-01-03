@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 const ResourceEdit = ({ data }) => {
   const router = useRouter();
   const updateResource = (formData) => {
-    // alert(JSON.stringify(formData));
     axios
       .patch("/api/resources/", formData)
       .then(() => router.push("/resources/" + formData.id))
