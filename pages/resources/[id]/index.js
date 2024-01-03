@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import resources from "@/pages/api/resources";
 import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
@@ -28,20 +29,24 @@ const ResourceDetail = ({ data }) => {
                       </span>
                     </h2>
                     <h1 className="title">{data.title}</h1>
-
                     <p>{data.description}</p>
-                    <Link
-                      href={`/resources/${data.id}/edit`}
-                      className="button is-warning"
-                    >
-                      Update
-                    </Link>
-                    <button
-                      className="button is-success ml-1"
-                      onClick={activeResource}
-                    >
-                      Active
-                    </button>
+                    <p>{data.timeToFinish} mintues</p>
+                    {data.status === "inactive" && (
+                      <>
+                        <Link
+                          href={`/resources/${data.id}/edit`}
+                          className="button is-warning"
+                        >
+                          Update
+                        </Link>
+                        <button
+                          className="button is-success ml-1"
+                          onClick={activeResource}
+                        >
+                          Active
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -56,7 +61,7 @@ const ResourceDetail = ({ data }) => {
 };
 
 export async function getServerSideProps({ params, query }) {
-  const res = await fetch(`http://localhost:3001/api/resources/${query.id}`);
+  const res = await fetch(`${process.env.API_URL}/resources/${query.id}`);
   const data = await res.json();
   return {
     props: {

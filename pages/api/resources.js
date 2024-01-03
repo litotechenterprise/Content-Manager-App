@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default async function resources(req, res) {
   if (req.method === "GET") {
-    const response = await fetch("http://localhost:3001/api/resources");
+    const response = await fetch(`${process.env.API_URL}/resources`);
     const data = await response.json();
     return res.send(data);
   } else if (req.method === "POST" || req.method === "PATCH") {
@@ -12,8 +12,8 @@ export default async function resources(req, res) {
     }
     const url =
       req.method === "POST"
-        ? "http://localhost:3001/api/resources"
-        : "http://localhost:3001/api/resources/" + id;
+        ? `${process.env.API_URL}/resources`
+        : `${process.env.API_URL}/resources/${id}`;
     try {
       const axiosRes = await axios[req.method.toLowerCase()](url, req.body);
       return res.send(axiosRes.data);

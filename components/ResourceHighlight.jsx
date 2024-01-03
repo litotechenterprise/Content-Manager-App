@@ -26,7 +26,7 @@ const ResourceHighlight = ({ resources }) => {
 
                       <Link
                         href={"/resources/" + resource.id}
-                        className="button is-link"
+                        className="button is-text"
                       >
                         Details
                       </Link>

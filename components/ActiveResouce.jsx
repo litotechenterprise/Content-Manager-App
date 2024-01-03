@@ -43,7 +43,7 @@ const ActiveResouce = () => {
 
   const completeResouce = () => {
     axios
-      .patch("/api/resources/", { ...resource, status: "complete" })
+      .patch("/api/resources", { ...resource, status: "complete" })
       .then((_ = location.reload()))
       .catch((_ = alert("Cannot complete the resouce!")));
   };

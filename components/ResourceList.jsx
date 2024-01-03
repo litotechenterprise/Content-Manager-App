@@ -15,7 +15,7 @@ const ResourceList = ({ resources }) => {
           <h1 className="title has-text-black is-3">{resource.title}</h1>
 
           <p className="has-text-dark">{resource.description}</p>
-          <Link href={"/resources/" + resource.id} className="button is-link">
+          <Link href={"/resources/" + resource.id} className="button is-text">
             Details
           </Link>
         </div>
